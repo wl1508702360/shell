@@ -9,6 +9,7 @@
 ### 判断系统上是否用户的默认shell为bash，如果有，就显示有多少这类用户，否则就显示没有这类用户
 
 ```shell
+#!/bin/bash
 # \< 锚定词首
 grep "\<bash$" /etc/passwd &> /dev/null
 
