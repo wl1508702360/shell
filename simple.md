@@ -6,6 +6,15 @@
 ! id -u testUser &> /dev/null && useradd testUser && echo 'testUser' | passwd --stdin testUser | echo 'add testUser success' || echo 'testUser is exist'
 ```
 
+### 给定一个用户，如果其UID为0，显示其为管理员，否则，就显示其为普通用户
+
+```shell
+#!/bin/bash
+USER=user1
+USERID=`id -u $USER`
+[ $USERID -eq 0] && echo "$USER is a admin." || echo "$USER is a common user."
+```
+
 ### 判断系统上是否用户的默认shell为bash，如果有，就显示有多少这类用户，否则就显示没有这类用户
 
 ```shell
