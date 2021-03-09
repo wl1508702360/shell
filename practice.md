@@ -32,3 +32,18 @@ sed -n 10p file.txt
 awk "NR == 10" file.txt
 或者cat file.txt | awk "NR == 10"
 ```
+
+### [给定一个文件 file.txt，转置它的内容。](https://leetcode-cn.com/problems/transpose-file)
+
+```shell
+#!/bin/bash
+num=`head -n1 file.txt | wc -w`
+for i in `seq 1 $num`; do
+    echo `cut -d' ' -f$i file.txt`
+done
+```
+
+
+
+
+

@@ -31,3 +31,19 @@ else
     echo 'No such users'
 fi
 ```
+
+### 给定一个用户，判断其UID和GID是否一样，如果一样，就输出ok，否则输出no
+```shell
+#!/bin/bash
+USER=user1
+# cat /etc/passwd | grep user1 | cut -d: -f3 
+USERID=`id -u $USER`
+
+# # cat /etc/passwd | grep user1 | cut -d: -f4
+GROUPID=`id -g $USER`
+if [ $USERID -eq $GROUPID ]; then
+    echo 'ok'
+else
+    echo 'no'
+fi
+```
