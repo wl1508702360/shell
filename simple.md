@@ -47,3 +47,26 @@ else
     echo 'no'
 fi
 ```
+
+### 给定一个文件，判断这个文件中是否存在空白行，如果有，显示空白行的数目，否则就显示无空白行
+```shell
+#!/bin/bash
+FILE=/home/ling/space
+grep "^$" $FILE &> /dev/null
+RETVAL=$?
+if [ $RETVAL -eq 0 ]; then
+    COUNT=`grep "^$" $FILE | wc -l`
+    echo "the empty sapce count is $COUNT"
+else
+    echo "no empty space"
+fi
+```
+
+### 判断文件是否存在
+```shell
+#!/bin/bash
+FILE=/etc/passwd
+if [ ! -e $FILE ]; then
+    echo "$FILE is not exists"
+fi
+```
