@@ -43,7 +43,3 @@ for i in `seq 1 $num`; do
 done
 ```
 
-
-
-
-

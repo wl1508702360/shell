@@ -70,3 +70,65 @@ if [ ! -e $FILE ]; then
     echo "$FILE is not exists"
 fi
 ```
+
+### 取出history命令中的总条目
+```shell
+#!/bin/bash
+history | sed 's/^[[:space:]]*//g' | cut -d ' ' -f1 | tail -f -n 1
+```
+
+### 给定一个用户，获取其密码警告期限（6），而后判断用户最近一次修改密码时间(3)
+### 距离其最长使用期限(5)是否已经小于警告期限(6)，小于，显示warning，否则显示ok
+### 注意已经使用掉的天数
+```shell
+#!/bin/bash
+USER=user1
+# 使用时间 = 当前时间 - 修改时间
+USEDTIME=$[$[`date +%s`/86400] - `egrep "^$USER\>" /etc/shadow | cut -d: -f3`]
+
+# 获取最长使用期限
+LONGTIME=`egrep "^$USER\>" /etc/shadow | cut -d: -f5`
+
+# 获取警告期限
+WARNINGTIME=`egrep "^$USER\>" /etc/shadow | cut -d: -f6`
+
+# 剩余使用时间
+REMAINTIME=$[$LONGTIME - $USEDTIME]
+if [ $REMAINTIME -lt $WARNINGTIME ]; then
+    echo "warning"
+else
+    echo "ok"
+fi
+```
+
+### 接受一个参数（文件路径），判断此参数是一个存在的文件，就显示ok，否则显示no such file
+```shell
+#!/bin/bash
+if [ $# -lt 1 ]; then
+    echo 'usage: ./test.sh /etc/issue'
+    exit 7
+fi
+
+if [ -e $1 ]; then
+    echo 'ok'
+else
+    echo 'no such file'
+fi
+```
+
+### 给脚本传递两个参数（整数），显示两数之和、之积
+```shell
+#!/bin/bash
+if [ $# -lt 2 ]; then
+    echo "Usage: ./test.sh 1 2"
+    exit 7
+fi
+
+echo $[$1 + $2]
+echo $[$1 * $2]
+```
+
+
+
+
+
