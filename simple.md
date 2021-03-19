@@ -128,7 +128,46 @@ echo $[$1 + $2]
 echo $[$1 * $2]
 ```
 
+### 传递一个用户参数给脚本，判断传入用户的用户名和其基本组的组名是否一样，并显示相应的结果
+```shell
+#!/bin/bash
+if [ $# -lt 1 ]; then
+    echo "Usage: ./test.sh user1"
+    exit 7
+fi
 
+if ! id $1 &> /dev/null; then
+    echo "no such user"
+    exit 7
+fi
 
+if  [ `id -nu $1` == `id -ng $1` ]; then
+    echo "same"
+else
+    eco "not same"
+fi
+```
 
+### 传递一个参数给脚本，如果参数为q、Q、quit或者Quit，就退出脚本，否则就显示用户退出的参数
+```shell
+if [ $# -lt 1 ]; then
+    echo 'Usage: ./test.sh q'
+    exit 7
+fi
 
+if [ $1 == 'q' ]; then
+    echo 'quiting1'
+    exit
+elif [ $1 == 'Q' ]; then 
+    echo 'quiting2'
+    exit
+elif [ $1 == 'quit' ]; then
+    echo 'quiting3'
+    exit
+elif [ $1 == 'Quit' ]; then
+    echo 'quiting4'
+    exit
+else
+    echo $1;
+fi
+```
